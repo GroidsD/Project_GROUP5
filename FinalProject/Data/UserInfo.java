@@ -1,0 +1,6 @@
+/**
+ * UserInfo
+ */
+public class UserInfo {
+
+}
