@@ -30,7 +30,7 @@ header {
 }
 
 .clock-in {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -100,3 +100,22 @@ nav a {
     color: #fff;
 }
 
+.routineFormDisplay {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#routineForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
