@@ -60,7 +60,7 @@ header {
 
 .features a {
     text-decoration: none;
-    color: #337ab7;
+    color: #333;
 }
 
 .tasks {
@@ -100,5 +100,3 @@ nav a {
     color: #fff;
 }
 
-nav a.active {
-}
