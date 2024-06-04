@@ -1,6 +1,0 @@
-/**
- * UserInfo
- */
-public class UserInfo {
-
-}

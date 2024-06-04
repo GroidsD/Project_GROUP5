@@ -1,7 +1,0 @@
-/**
- * Manager
- */
-public class Manager {
-
-    
-}
