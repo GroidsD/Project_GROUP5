@@ -430,7 +430,7 @@ session_start();
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-echo "Connected successfully";
+// echo "Connected successfully";
 $id = 1;
 $employee_id = $_SESSION['id']; // Fetch employee_id from session
 $placeid = $_POST['placeid']; // or retrieve the value from somewhere else
@@ -452,8 +452,6 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     } else {
         echo "Error inserting schedule: ". mysqli_stmt_error($stmt);
     }
-} else {
-    echo "Error preparing statement: ". mysqli_stmt_error($stmt);
 }
 ?>
                         <?php
