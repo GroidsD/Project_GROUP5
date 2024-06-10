@@ -4,5 +4,5 @@ session_destroy(); //destroy the session
  
 ?>
 <script>
-window.location="login.php";
+window.location="logout.php";
 </script>

@@ -126,12 +126,12 @@ if(empty($_SESSION['admin-username']))
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">View Routine</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/employee_akpoly/Admin/">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard </li>
+              <li class="breadcrumb-item active">View Routine </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -260,7 +260,26 @@ if (!$conn) {
 }
 
 // Query to retrieve employee data
-$query = "SELECT id, fullname, employeeID, email, phone, dept, basic_salary FROM tblemployee";
+$query = "SELECT 
+             r.id, 
+             r.employeeID, 
+             r.placeid, 
+             r.monday, 
+             r.tuesday, 
+             r.wednesday, 
+             r.thursday, 
+             r.friday, 
+             r.saturday, 
+             r.sunday, 
+             e.employeeID, 
+             e.fullname 
+          FROM 
+             tblroutines r 
+          INNER JOIN 
+             tblemployee e 
+          ON 
+             r.employeeID = e.employeeID";
+
 $result = mysqli_query($conn, $query);
 
 // Check if query is successful
@@ -269,16 +288,20 @@ if (!$result) {
 }
 
 // Display employee data in a table
-echo "<table class='table'>";
+echo "<table class='table table-striped'>";
 echo "<thead class='thead-dark'>";
 echo "<tr>";
 echo "<th scope='col'>#</th>";
-echo "<th scope='col'>Fullname</th>";
-echo "<th scope='col'>Identity Number</th>";
-echo "<th scope='col'>Email</th>";
-echo "<th scope='col'>Phone</th>";
-echo "<th scope='col'>Roll</th>";
-echo "<th scope='col'>Salary</th>";
+echo "<th scope='col'>Full Name</th>";
+echo "<th scope='col'>Id Number</th>";
+echo "<th scope='col'>Place ID</th>";
+echo "<th scope='col'>Monday</th>";
+echo "<th scope='col'>Tuesday</th>";
+echo "<th scope='col'>Wednesday</th>";
+echo "<th scope='col'>Thursday</th>";
+echo "<th scope='col'>Friday</th>";
+echo "<th scope='col'>Saturday</th>";
+echo "<th scope='col'>Sunday</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -288,11 +311,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<th scope='row'>". $counter++. "</th>"; // increment counter
     echo "<td>". $row['fullname']. "</td>";
     echo "<td>". $row['employeeID']. "</td>";
-    echo "<td>". $row['email']. "</td>";
-    echo "<td>". $row['phone']. "</td>";
-    echo "<td>". $row['dept']. "</td>";
-    echo "<td>". $row['basic_salary']. "</td>";
-    echo "</tr>";
+    echo "<td>". $row['placeid']. "</td>";
+    echo "<td>". $row['monday']. "</td>";
+    echo "<td>". $row['tuesday']. "</td>";
+    echo "<td>". $row['wednesday']. "</td>";
+    echo "<td>". $row['thursday']. "</td>";
+    echo "<td>". $row['friday']. "</td>";
+    echo "<td>". $row['saturday']. "</td>";
+    echo "<td>". $row['sunday']. "</td>";
+    // echo "<td><button onclick="openPopup()">CREATE ROUTINE</button></td>";
 }
 
 echo "</tbody>";
@@ -300,6 +327,7 @@ echo "</table>";
 
 // Close connection
 mysqli_close($conn);
+
 ?>
 
       

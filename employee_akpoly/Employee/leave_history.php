@@ -59,7 +59,7 @@ else {return false;
   
    
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"><span class="text-muted text-xs block"><?php echo $rowaccess['email'];  ?> <b class="caret"></b></span> </span> </a>
+                            <span class="clear"><span class="text-muted text-xs block"><?php echo $rowaccess['fullname'];  ?> <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             
                             <li><a href="logout.php">Logout</a></li>

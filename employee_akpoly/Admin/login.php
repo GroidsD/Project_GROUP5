@@ -56,8 +56,6 @@ $_SESSION['error']=' Wrong Username and Password';
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <div class="login-logo">
-    <a href="#"><b><img src="../<?php echo $logo ; ?>" width="100" height="100"><span class="style4"><?php echo $sitename ; ?>  </span></b></a>  </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">

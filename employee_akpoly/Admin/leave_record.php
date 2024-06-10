@@ -120,11 +120,7 @@ else {return false;
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-    <img src="../<?php echo $logo2; ?>" alt=" Logo" width="150" height="130" style="opacity: .8">
-	        <span class="brand-text font-weight-light">  </span>
-    </a>
-
+    
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -132,7 +128,7 @@ else {return false;
         <div class="image">
         <img src="../<?php echo $row_admin['photo'];    ?>" alt="User Image" width="140" height="141" class="img-circle elevation-2">        </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $row_admin['fullname'];  ?></a>
+          <a href="index.php" class="d-block"><?php echo $row_admin['fullname'];  ?></a>
         </div>
       </div>
 

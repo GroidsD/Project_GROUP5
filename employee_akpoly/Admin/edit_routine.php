@@ -291,6 +291,17 @@ $query = "SELECT employeeID FROM tblemployee WHERE id = '$id'";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 $employeeID = $row['employeeID'];
+$query = "SELECT placeid, monday, tuesday, wednesday,thursday,friday,saturday,sunday FROM tblroutines WHERE employeeid = '$employeeID'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$placeid = $row['placeid'];
+$monday = $row['monday'];
+$tuesday = $row['tuesday'];
+$wednesday = $row['wednesday'];
+$thursday = $row['thursday'];
+$friday = $row['friday'];
+$saturday = $row['saturday'];
+$sunday = $row['sunday'];
 
 // Check if query is successful
 if (!$result) {
@@ -313,17 +324,17 @@ if (!$result) {
                         </style>
 
                         <div id="routineForm" class="hidden">
-                            <form class="requestRoutineForm" action="create_routine.php" method="post">
+                            <form class="requestRoutineForm" action="edit_routine.php" method="post">
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
                                         <label for="date">Identity Number</label>
                                         <input type="text" class="form-control" id="validationCustom01" required
-                                            value="<?php echo $employeeID;?>" name="employee_id">
+                                        value="<?php echo $employeeID;?>" name="employee_id">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="idNumber">Place Id</label>
                                         <input type="text" class="form-control" id="validationCustom02" required
-                                            name="placeid">
+                                        value="<?php echo $placeid;?>" name="placeid">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -333,6 +344,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="selectTimeRequest">Select Time :</label>
                                         <select name="monday" id="">
+                                            <option value="<?php echo $monday ?>"><?php echo $monday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -346,6 +358,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="selectTimeRequest">Select Time :</label>
                                         <select name="tuesday" id="">
+                                            <option value="<?php echo $tuesday ?>"><?php echo $tuesday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -359,6 +372,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="selectTimeRequest">Select Time :</label>
                                         <select name="wednesday" id="">
+                                            <option value="<?php echo $wednesday ?>"><?php echo $wednesday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -372,6 +386,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="selectTimeRequest">Select Time :</label>
                                         <select name="thursday" id="">
+                                            <option value="<?php echo $thursday ?>"><?php echo $thursday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -385,6 +400,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="selectTimeRequest">Select Time :</label>
                                         <select name="friday" id="">
+                                            <option value="<?php echo $friday ?>"><?php echo $friday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -398,6 +414,7 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="saturday">Select Time :</label>
                                         <select name="saturday" id="">
+                                            <option value="<?php echo $saturday ?>"><?php echo $saturday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
@@ -411,29 +428,20 @@ if (!$result) {
                                     <div class="col-md-6 mb-3">
                                         <label for="sunday">Select Time :</label>
                                         <select name="sunday" id="">
+                                            <option value="<?php echo $sunday ?>"><?php echo $sunday ?></option>
                                             <option value="OFF">OFF</option>
                                             <option value="6h-12h">6h-12h</option>
                                             <option value="12h-18h">12h-18h</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="btnSubmit">
-                                    <button class="btn btn-primary" id="create-btn" type="submit">Create
-                                        Routine</button>
-                                    <button onclick="window.location.href='index_createRoutine.php'"
-                                        class="btn btn-primary">Close</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <?php
-// Create a mysqli object
-$conn = new mysqli("localhost", "thienvu", "thienvu", "employee_akpoly");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: ". $conn->connect_error);
-}
+        <div class="btnSubmit">
+            <button class="btn btn-primary" id="create-btn" type="submit">Update Routine</button>
+            <button onclick="window.location.href='index_editRoutine.php'" class="btn btn-primary">Close</button>
+        </div>
+    </form>
+</div>
+<?php
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -448,43 +456,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $saturday = $_POST['saturday'];
     $sunday = $_POST['sunday'];
 
-    // Check if a routine already exists for this employee ID
-    $stmt = $conn->prepare("SELECT * FROM tblroutines WHERE employeeid = ?");
-    $stmt->bind_param("s", $employeeid);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Prepare and execute the query
+    $sql = "UPDATE tblroutines SET placeid='$placeid',monday='$monday',tuesday='$tuesday',wednesday='$wednesday',thursday='$thursday',friday='$friday',saturday='$saturday',sunday='$sunday' WHERE employeeID='$employeeid'";
 
-    if ($result->num_rows > 0) {
-        echo "Routine already exists for this employee ID. Cannot create another one.";
-    } else {
-        // Prepare and execute the query
-        $stmt = $conn->prepare("INSERT INTO tblroutines (employeeid, placeid, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("sssssssss", $employeeid, $placeid, $monday, $tuesday, $wednesday, $thursday, $friday, $saturday, $sunday);
-        $stmt->execute();
-
-        // Check if query was successful
-        if ($stmt->affected_rows > 0) {
-            echo "Schedule inserted successfully!";
-        } else {
-            echo "Error inserting schedule: ". $stmt->error;
-        }
-    }
+if ($conn->query($sql) === TRUE) {
+//   echo "Record updated successfully";
+    echo '<script>alert("Record updated successfully")</script>';
+    exit;
+    // header('Location: http://localhost/employee_akpoly/Admin/index.php');
+} else {
+  echo "Error updating record: " . $conn->error;
+}
 }
 
 // Close connection
 $conn->close();
 ?>
-                        </form>
+
+                            </form>
+
+
+                        </div>
+                    </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
-
-        <!-- Control Sidebar -->
     </div>
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-
+    
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
